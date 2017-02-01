@@ -26,15 +26,15 @@ object CsvHelpers {
 	//Instance or "instruction object" to convert hlists with at least one element into a CsvLine
 	implicit def hlistCsvLineInstr[HEAD, TAIL <: HList](
 	   implicit instrHead: CsvFieldInstr[HEAD], instrTail: CsvLineInstr[TAIL]
-   ): CsvLineInstr[HEAD :: TAIL] = CsvLineInstr.instance {
-		case head :: tail => instrHead.convert(head) :: instrTail.convert(tail)
+   ): CsvLineInstr[HEAD :: TAIL] = CsvLineInstr.instance { hnil =>
+		instrHead.convert(hnil.head) :: instrTail.convert(hnil.tail)
 	}
 
 	//Creates Instances or "instruction objects" for any Type T
 	//Precondition is, that we have instructions how to create an HList from type T and that we have instructions to serialize this HList
 	implicit def genericCsvLineInstr[T, Ts_HLIST_REPRESENTATION](
-	   implicit tToHListInstr: Generic[T] {type Repr = Ts_HLIST_REPRESENTATION}, hlistInstr: CsvLineInstr[Ts_HLIST_REPRESENTATION]
-   ) : CsvLineInstr[T] = CsvLineInstr.instance { obj =>
+		implicit tToHListInstr: Generic[T] {type Repr = Ts_HLIST_REPRESENTATION}, hlistInstr: CsvLineInstr[Ts_HLIST_REPRESENTATION]
+	): CsvLineInstr[T] = CsvLineInstr.instance { obj =>
 		val hlist: Ts_HLIST_REPRESENTATION = tToHListInstr.to(obj)
 		hlistInstr.convert(hlist)
 	}
