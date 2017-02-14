@@ -32,7 +32,7 @@ object CsvHelpers {
 }
 
 case class Pizza(name:  String, size:     Int, price:  Double)
-case class Tank (model: String, version:  Int, weight: Double)
+case class   CPU(model: String, version:  Int, ghz:    Double)
 case class Fruit(name:  String, color: String, weight: Double, calories: Int)
 
 object Serialization extends App { import CsvHelpers._
@@ -41,9 +41,9 @@ object Serialization extends App { import CsvHelpers._
 	val cheesePizzaHList: String :: Int :: Double :: HNil = Generic[Pizza].to(cheesePizza)
 	printCsv(cheesePizzaHList)
 
-	val leopard2 = Tank("Leopard", 2, 62.52)
-	val leopard2Hlist: String :: Int :: Double :: HNil = Generic[Tank].to(leopard2)
-	printCsv(leopard2Hlist)
+	val ryzen = CPU("AMD Ryzen", 3, 3.2)
+	val ryzenHlist: String :: Int :: Double :: HNil = Generic[CPU].to(ryzen)
+	printCsv(ryzenHlist)
 
 	val redApple = Fruit("Apple", "red", 52.22, 100)
 	val redAppleHlist: String :: String :: Double :: Int :: HNil = Generic[Fruit].to(redApple)

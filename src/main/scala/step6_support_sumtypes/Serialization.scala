@@ -3,13 +3,6 @@ package step6_support_sumtypes
 import shapeless._
 import shapeless.syntax.std.product._
 
-sealed trait Food
-case class Pizza(name:  String, size:     Int, price:  Double) extends Food
-case class Fruit(name:  String, color: String, weight: Double, calories: Int) extends Food
-case class Cola (brand: String, iceCubes: Int) extends Food
-
-case class Tank (model: String, version:  Int, weight: Double)
-
 object CsvHelpers {
 	//Some instances or "instruction objects" to convert common types into CsvFields
 	implicit val StringCsvField: CsvFieldInstr[String] =
@@ -62,6 +55,11 @@ object CsvHelpers {
 	def printCsv[T](obj: T)(implicit instructions: CsvLineInstr[T]): Unit =
 		println( instructions.convert(obj).mkString(",") )
 }
+
+sealed trait Food
+case class Pizza(name:  String, size:     Int, price:  Double) extends Food
+case class Fruit(name:  String, color: String, weight: Double, calories: Int) extends Food
+case class Cola (brand: String, iceCubes: Int) extends Food
 
 object Serialization extends App { import CsvHelpers._
 	val foods: List[Food] = List(

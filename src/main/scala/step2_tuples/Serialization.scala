@@ -28,7 +28,8 @@ object CsvHelpers {
 }
 
 case class Pizza(name:  String, size:    Int, price:  Double)
-case class Tank (model: String, version: Int, weight: Double)
+case class   CPU(model: String, version: Int, ghz:    Double)
+
 
 object Serialization extends App { import CsvHelpers._
 
@@ -36,7 +37,7 @@ object Serialization extends App { import CsvHelpers._
 	val cheesePizzaTuple: (String, Int, Double) = Pizza.unapply(cheesePizza).get
 	printCsv(cheesePizzaTuple)
 
-	val leopard2 = Tank("Leopard", 2, 62.52)
-	val leopard2Tuple: (String, Int, Double) = Tank.unapply(leopard2).get
-	printCsv(leopard2Tuple)
+	val ryzen = CPU("AMD Ryzen", 3, 3.2)
+	val ryzenTuple: (String, Int, Double) = CPU.unapply(ryzen).get
+	printCsv(ryzenTuple)
 }

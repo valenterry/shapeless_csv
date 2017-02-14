@@ -3,11 +3,6 @@ package step5_serialize_caseclasses_directly
 import shapeless._
 import shapeless.syntax.std.product._
 
-case class Pizza(name:  String, size:     Int, price:  Double)
-case class Tank (model: String, version:  Int, weight: Double)
-case class Fruit(name:  String, color: String, weight: Double, calories: Int)
-case class Plate(i: Int, p: Pizza)
-
 object CsvHelpers {
 	//Some instances or "instruction objects" to convert common types into CsvFields
 	implicit val StringCsvField: CsvFieldInstr[String] =
@@ -45,12 +40,17 @@ object CsvHelpers {
 		println( instructions.convert(obj).mkString(",") )
 }
 
+case class Pizza(name:  String, size:     Int, price:  Double)
+case class   CPU(model: String, version:  Int, ghz:    Double)
+case class Fruit(name:  String, color: String, weight: Double, calories: Int)
+case class Plate(i: Int, p: Pizza)
+
 object Serialization extends App { import CsvHelpers._
 	val cheesePizza = Pizza("4cheeses", 32, 10.50)
 	printCsv(cheesePizza)
 
-	val leopard2 = Tank("Leopard", 2, 62.52)
-	printCsv(leopard2)
+	val ryzen = CPU("AMD Ryzen", 3, 3.2)
+	printCsv(ryzen)
 
 	val redApple = Fruit("Apple", "red", 52.22, 100)
 	printCsv(redApple)

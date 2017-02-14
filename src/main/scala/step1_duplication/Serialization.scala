@@ -19,10 +19,10 @@ object CsvHelpers {
 		Nil
 	}
 
-	implicit val tankCsvLineInstr: CsvLineInstr[Tank] = CsvLineInstr.instance{ tank =>
+	implicit val tankCsvLineInstr: CsvLineInstr[CPU] = CsvLineInstr.instance{ tank =>
 		StringCsvField.convert(tank.model) ::
 		IntCsvField.convert(tank.version) ::
-		DoubleCsvField.convert(tank.weight) ::
+		DoubleCsvField.convert(tank.ghz) ::
 		Nil
 	}
 
@@ -33,13 +33,13 @@ object CsvHelpers {
 }
 
 case class Pizza(name:  String, size:    Int, price:  Double)
-case class Tank (model: String, version: Int, weight: Double)
+case class   CPU(model: String, version: Int, ghz:    Double)
 
 object Serialization extends App { import CsvHelpers._
 
 	val cheesePizza = Pizza("4cheeses", 32, 10.50)
 	printCsv(cheesePizza)
 
-	val leopard2 = Tank("Leopard", 2, 62.52)
-	printCsv(leopard2)
+	val ryzen = CPU("AMD Ryzen", 3, 3.2)
+	printCsv(ryzen)
 }
