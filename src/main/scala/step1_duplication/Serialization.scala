@@ -19,10 +19,10 @@ object CsvHelpers {
 		Nil
 	}
 
-	implicit val tankCsvLineInstr: CsvLineInstr[CPU] = CsvLineInstr.instance{ tank =>
-		StringCsvField.convert(tank.model) ::
-		IntCsvField.convert(tank.version) ::
-		DoubleCsvField.convert(tank.ghz) ::
+	implicit val cpuCsvLineInstr: CsvLineInstr[CPU] = CsvLineInstr.instance{ cpu =>
+		StringCsvField.convert(cpu.model) ::
+		IntCsvField.convert(cpu.version) ::
+		DoubleCsvField.convert(cpu.ghz) ::
 		Nil
 	}
 
